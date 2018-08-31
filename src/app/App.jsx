@@ -1,11 +1,13 @@
-import React, {Component} from 'react';
+import { Switch, Route } from 'react-router-dom'
+import React from 'react'
+import Home from './components/Home.jsx'
 
-const hello = () => {
-    return (
-        <div>
-            <h1>Hello from my react component!</h1>
-        </div>
-    );
-};
+const App = () => (
+    <main>
+        <Switch>
+            <Route exact path='/' component={Home} />
+        </Switch>
+    </main>
+)
 
-export default hello;
+export default App
