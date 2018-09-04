@@ -1,19 +1,29 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Post from './Post.jsx'
+import PostList from './PostList.jsx'
+import Header from './Header'
+import { fetchPosts } from '../actions'
 
-const Home = ({ posts }) => {
-    console.log('props', posts)
-    const postList = posts.map(post => <Post key={post.id} {...post} />)
-    return (
-        <div>
-            {postList}
-        </div>
-    )
+class Home extends Component {
+    constructor(props){
+        super(props)
+    }
+    componentDidMount(){
+        this.props.dispatch(fetchPosts())
+    }
+    render(){
+        const { posts } = this.props
+        return (
+            <div>
+                <Header />
+                <PostList posts={posts} />
+            </div>
+        )
+    }
 }
 
-const mapStateToProps = (state) => {
-    return {posts: state.posts}
+function mapStateToProps(state){
+    return {posts: state.posts.posts}
 }
 
-export default connect(mapStateToProps, null)(Home)
+export default connect(mapStateToProps)(Home)

@@ -9,20 +9,21 @@ import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
 import { fetchPosts } from './app/actions.js'
 import { Provider } from 'react-redux'
-import reducer from './app/reducers.js'
+import { combineReducers } from 'redux'
+import posts from './app/postReducer'
+import auth from './app/authReducer'
 
 const loggerMiddleware = createLogger()
+const rootReducer = combineReducers({auth, posts})
 
 const store = createStore(
-    reducer,
+    rootReducer,
     applyMiddleware(
         thunkMiddleware,
         loggerMiddleware
     )
 )
 
-store.dispatch(fetchPosts())
-    .then(() => console.log(store.getState()))
 ReactDOM.render((
     <Provider store={store}>
         <BrowserRouter>
