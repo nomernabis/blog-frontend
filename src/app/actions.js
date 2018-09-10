@@ -41,13 +41,21 @@ const loginRequested = () => ({
 })
 
 export const LOGIN_RECEIVED = 'LOGIN_RECEIVED'
-const loginReceived = (response) => ({
+const loginReceived = (key) => ({
     type: LOGIN_RECEIVED,
     isFetching: false,
-    response
+    key
 })
 
-export function login(username, password){
+export const LOGIN_ERROR = 'LOGIN_ERROR'
+const loginError = (errors) => ({
+    type: LOGIN_ERROR,
+    isFetching: false,
+    errors
+})
+
+export function login(credentials){
+    const {username, password} = credentials
     return function (dispatch){
         dispatch(loginRequested())
         return fetch(API_URL + LOGIN,
@@ -56,6 +64,14 @@ export function login(username, password){
                body: JSON.stringify({username, password})})
             .then(response => response.json(),
              error => console.log('login error', error))
-             .then(json => { dispatch(loginReceived(json)) })
+             .then(json => {
+                if(json.key){
+                    localStorage.setItem('key', json.key)
+                    dispatch(loginReceived(json.key))
+                } else {
+                    dispatch(loginError(json))
+                }
+              }
+            )
     }
 }
