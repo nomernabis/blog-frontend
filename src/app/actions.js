@@ -55,7 +55,7 @@ const loginError = (errors) => ({
 })
 
 export function login(credentials){
-    const {username, password} = credentials
+    const { username, password } = credentials
     return function (dispatch){
         dispatch(loginRequested())
         return fetch(API_URL + LOGIN,

@@ -31,7 +31,9 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "cross-fetch": "^2.2.2",
+    "prop-types": "^15.6.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",

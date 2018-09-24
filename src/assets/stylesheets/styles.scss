@@ -88,6 +88,10 @@ body{
     border: none;
     border-bottom: 1px solid #757575;
 }
+.has-error{
+    border: 1px solid red;
+    color:red;
+}
 .group{
     position: relative;
     margin-bottom: 45px;
