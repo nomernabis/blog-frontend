@@ -1,5 +1,5 @@
 export const API_URL = 'http://localhost:8000/'
-export const LOGIN = 'login/'
+export const SIGNIN = 'signin/'
 export const USERS = 'users/'
 export const POSTS = 'posts/'
 export const SIGNUP = 'signup/'

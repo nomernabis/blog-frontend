@@ -10,8 +10,8 @@ import { createStore, applyMiddleware } from 'redux'
 import { fetchPosts } from './app/actions.js'
 import { Provider } from 'react-redux'
 import { combineReducers } from 'redux'
-import posts from './app/postReducer'
-import auth from './app/authReducer'
+import posts from './app/reducers/postReducer'
+import auth from './app/reducers/authReducer'
 
 const loggerMiddleware = createLogger()
 const rootReducer = combineReducers({auth, posts})

@@ -1,7 +1,7 @@
 import {
     REQUEST_POSTS,
     RECEIVE_POSTS
-} from './actions.js'
+} from '../actions.js'
 
 function posts(
     state = {
