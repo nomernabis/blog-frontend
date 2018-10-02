@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { login } from '../actions'
 import { connect } from 'react-redux'
-import { signUp } from '../actions/authActions'
+import { signUp, clearErrors } from '../actions/authActions'
 import TextFieldGroup from './TextFieldGroup'
+import { withRouter } from 'react-router'
 
 class SignupForm extends Component {
     constructor(props){
@@ -34,17 +34,29 @@ class SignupForm extends Component {
     onSubmit(e){
         e.preventDefault()
         this.setState({ errors: {} })
+        this.props.clearErrors()
         if(this.validate()){
             this.props.signUp(this.state)
         }
     }
     onChange(e){
         this.setState({ [e.target.name]: e.target.value , errors: {} })
+        if(this.props.auth.errors && Object.keys(this.props.auth.errors).length != 0){
+            this.props.clearErrors()
+        }
     }
     render(){
+        if(this.props.auth.response && Object.keys(this.props.auth.errors).length == 0){
+            this.props.history.push('/')
+            this.props.clearErrors()
+        }
+        let username
+        if(this.props.auth.errors && this.props.auth.errors.username){
+            username = this.props.auth.errors.username[0]
+        }
         return (
             <form className="login-form">
-                <TextFieldGroup value={this.state.username} type="text" field="username" label="Username" onChange={this.onChange} error={this.state.errors.username}/>
+                <TextFieldGroup value={this.state.username} type="text" field="username" label="Username" onChange={this.onChange} error={this.state.errors.username || username}/>
                 <TextFieldGroup value={this.state.password} type="password" field="password" label="Password" onChange={this.onChange} error={this.state.errors.password} />
                 <button onClick={this.onSubmit} className="button-login">
                     Sign Up
@@ -58,7 +70,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    signUp: (credentials) => { dispatch(signUp(credentials)) }
+    signUp: (credentials) => dispatch(signUp(credentials)),
+    clearErrors: () => dispatch(clearErrors())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupForm)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignupForm))

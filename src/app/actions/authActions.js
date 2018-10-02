@@ -41,6 +41,12 @@ export const signinSuccess = (token) => ({
     token
 })
 
+export const signupSuccess = (response) => ({
+    type: SIGNUP_SUCCESS,
+    isFetching: false,
+    response
+})
+
 const SETTINGS =  {
     method: 'POST',
     headers: { "Content-Type": "application/json; charset=utf-8" }
@@ -67,11 +73,18 @@ export const signUp = credentials => dispatch => {
     SETTINGS.body = JSON.stringify({username, password})
     console.log(SETTINGS)
     return fetch(API_URL + USERS, SETTINGS)
-            .then(response => response.json(), error => console.log('error', error))
-            .then(json => console.log('regitered successfully', json))
+            .then(response => response.json().then(data => ({data: data, ok: response.ok})), error => console.log('error', error))
+            .then(json => {
+                if(json.ok){
+                    dispatch(signupSuccess(json.data))
+                } else {
+                    dispatch(signupError(json.data))
+                }
+            })
 }
 
 export const clearErrors = () => ({
     type: CLEAR_ERRORS,
-    errors: {}
+    errors: {},
+    response: null
 })

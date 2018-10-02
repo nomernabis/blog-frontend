@@ -14,7 +14,7 @@ function auth(state={ isFetching: false, key: null, errors: null, response: null
         case SIGNUP_ERROR:
             return Object.assign({}, state, {isFetching: action.isFetching, errors: action.errors})
         case CLEAR_ERRORS:
-            return Object.assign({}, state, { errors: action.errors})
+            return Object.assign({}, state, { errors: action.errors, response: action.response})
         default:
             return state
     }

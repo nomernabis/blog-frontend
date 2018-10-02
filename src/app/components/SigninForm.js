@@ -17,8 +17,9 @@ class SigninForm extends Component{
         this.validate = this.validate.bind(this)
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.auth.key){
+        if(nextProps.auth.token){
             localStorage.setItem('token', nextProps.auth.token)
+            localStorage.setItem('isLoggedIn', true)
             this.props.history.push('/')
         }
     }
@@ -60,7 +61,7 @@ class SigninForm extends Component{
                 <TextFieldGroup value={this.state.username} type="text" field="username" label="Username" onChange={this.onChange} error={this.state.errors.username}/>
                 <TextFieldGroup value={this.state.password} type="password" field="password" label="Password" onChange={this.onChange} error={this.state.errors.password} />
                 <button onClick={this.onSubmit} className="button-login">
-                    Sign Up
+                    Sign In
                 </button>
             </form>
         )

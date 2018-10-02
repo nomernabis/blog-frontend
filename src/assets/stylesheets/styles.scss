@@ -16,7 +16,6 @@ body{
 }
 .post{
     width: 33%;
-    padding: 16px 8px;
     margin: 16px auto;
 }
 .post-author{
@@ -44,6 +43,14 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.center-vertical{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); 
+}
+.absolute{
+    position: absolute;
+}
 .buttons{
     position: absolute;
     width: auto;
@@ -64,6 +71,9 @@ body{
 }
 .display-inline{
     display: inline;
+}
+.line{
+    display: inline-block;
 }
 .flex-container{
     display: flex;
@@ -87,6 +97,7 @@ body{
     color: #636363;
     border: none;
     border-bottom: 1px solid #757575;
+    width: 100%;
 }
 .has-error{
     border: 1px solid red;
